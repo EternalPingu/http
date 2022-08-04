@@ -5,12 +5,13 @@ http = {
     },
     jQuery : function() {
         const fulfilled = function(e) { if(e) {console.log("Success!")} else { console.log("Fail")}};
-        fetch(String("https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js")).then((response) => response.text()).then((data) => eval(data)).then((test) => fulfilled(test));
-        return true;
+        var request = fetch(String("https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js")).then((response) => response.text()).then((data) => eval(data)).then((test) => fulfilled(test));
+        return request;
     },
-    get : function(url) {
-        http.jQuery();
-        return $.get(url);
+    get : function(url,callback) {
+        return http.jQuery().then(()=>{
+            return $.get(url,callback);
+        });
     },
     post : function(url,data) {
         http.jQuery();
